@@ -1,0 +1,36 @@
+CREATE TABLE gift_shop
+(
+  itemId INT NOT NULL,
+  itemName VARCHAR(50) NOT NULL,
+  amount INT NOT NULL,
+  cost INT NOT NULL,
+  workerId INT NOT NULL,
+  PRIMARY KEY (itemId)
+);
+
+CREATE TABLE location
+(
+  locationId INT NOT NULL,
+  roomId INT,
+  buildingId INT NOT NULL,
+  floorId INT NOT NULL,
+  PRIMARY KEY (locationId)
+);
+
+CREATE TABLE gitches_list
+(
+  gId INT NOT NULL,
+  description VARCHAR(50) NOT NULL,
+  PRIMARY KEY (gId)
+);
+
+CREATE TABLE glitches
+(
+  glitchesId INT NOT NULL,
+  fixed INT NOT NULL,
+  gId INT NOT NULL,
+  locationId INT NOT NULL,
+  PRIMARY KEY (glitchesId),
+  FOREIGN KEY (gId) REFERENCES gitches_list(gId),
+  FOREIGN KEY (locationId) REFERENCES location(locationId)
+);
