@@ -1,0 +1,57 @@
+CREATE TABLE gift_shop
+(
+  itemId INT NOT NULL,
+  itemName VARCHAR(100) NOT NULL,
+  amount INT NOT NULL,
+  prise INT NOT NULL,
+  PRIMARY KEY (itemId)
+);
+
+CREATE TABLE location
+(
+  locationId INT NOT NULL,
+  roomId INT,
+  buildingId INT NOT NULL,
+  floorId INT NOT NULL,
+  PRIMARY KEY (locationId)
+);
+
+CREATE TABLE Maintenance_issues_list
+(
+  mId INT NOT NULL,
+  description VARCHAR(200) NOT NULL,
+  PRIMARY KEY (mId)
+);
+
+CREATE TABLE workers
+(
+  workerID INT NOT NULL,
+  workerIdNumber INT NOT NULL,
+  role VARCHAR(20) NOT NULL,
+  salary INT NOT NULL,
+  PRIMARY KEY (workerID),
+  UNIQUE (workerIdNumber)
+);
+
+CREATE TABLE Maintenance_issues
+(
+  fixed CHAR(1) NOT NULL,
+  IssueId INT NOT NULL,
+  locationId INT NOT NULL,
+  mId INT NOT NULL,
+  PRIMARY KEY (IssueId),
+  FOREIGN KEY (locationId) REFERENCES location(locationId),
+  FOREIGN KEY (mId) REFERENCES Maintenance_issues_list(mId)
+);
+
+CREATE TABLE sales
+(
+  saleId INT NOT NULL,
+  saleDate DATE NOT NULL,
+  itemId INT NOT NULL,
+  workerID INT NOT NULL,
+  PRIMARY KEY (saleId),
+  FOREIGN KEY (itemId) REFERENCES gift_shop(itemId),
+  FOREIGN KEY (workerID) REFERENCES workers(workerID)
+);
+
